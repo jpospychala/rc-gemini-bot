@@ -1,0 +1,24 @@
+.{
+    .name = .rc_gemini_bot_z,
+    .version = "0.0.0",
+    .fingerprint = 0x76f4fc7ee5f46ad1, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.14.0",
+    .dependencies = .{
+        .google_generative_ai_zig = .{
+            .url = "git+https://github.com/jpospychala/google-generative-ai-zig.git#786f2e1fca2cf3b9aca788271f7cbfc35f040401",
+            .hash = "google_generative_ai_zig-0.0.0--p48u40fAAAQbLvtgTHf6xQEDXyQiAA-WPa2x0D5mX9a",
+        },
+        .rocketchat_zig = .{
+            .url = "git+https://github.com/jpospychala/rocketchat-zig.git#599390ac39f814227577aac6b26cad38f5519874",
+            .hash = "rocketchat_zig-0.0.0-R7pWjag8AADSUL2J2XmVRa0wDjTm-kZCS5yi8eq7NrFE",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        // For example...
+        //"LICENSE",
+        //"README.md",
+    },
+}
