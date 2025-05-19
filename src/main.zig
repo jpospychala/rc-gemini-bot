@@ -12,13 +12,19 @@ pub fn main() !void {
     const username = try getEnv(allocator, "RC_USER");
     const password = try getEnv(allocator, "RC_PASSWORD");
     const roomName = try getEnv(allocator, "RC_ROOM");
-    // const sysprompt = try getEnv(allocator, "SYSTEMPROMPT");
+    const syspromptPath = try getEnv(allocator, "SYSTEMPROMPT");
+
+    const absSysPromptPath = try std.fs.realpathAlloc(allocator, syspromptPath);
+    var syspromptF = try std.fs.openFileAbsolute(absSysPromptPath, .{ .mode = .read_only });
+    const sysprompt = try syspromptF.readToEndAlloc(allocator, 4 * 1024 * 1024);
 
     const genAI = googleai.GoogleGenerativeAI.init(api_key);
     const model = genAI.getGenerativeModel("gemini-2.0-flash");
 
     var session = model.startChat(allocator);
     defer session.deinit();
+
+    _ = try session.sendMessage(sysprompt);
 
     var client = try rocketchat.RC.init(allocator, .{
         .port = 443, // 3000,
